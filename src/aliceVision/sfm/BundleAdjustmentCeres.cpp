@@ -671,8 +671,8 @@ void BundleAdjustmentCeres::addIntrinsicsToProblem(const sfmData::SfMData& sfmDa
       // refine optical center within 10% of the image size.
       assert(intrinsicBlock.size() >= 3);
 
-      const double opticalCenterMinPercent = 0.45 - 0.5;
-      const double opticalCenterMaxPercent = 0.55 - 0.5;
+      const double opticalCenterMinPercent = -0.05;
+      const double opticalCenterMaxPercent =  0.05;
 
       // add bounds to the principal point
       problem.SetParameterLowerBound(intrinsicBlockPtr, 2, opticalCenterMinPercent * intrinsicPtr->w());
