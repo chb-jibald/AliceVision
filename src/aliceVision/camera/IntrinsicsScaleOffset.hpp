@@ -9,6 +9,8 @@
 
 #include "IntrinsicBase.hpp"
 
+#include <aliceVision/version.hpp>
+
 namespace aliceVision {
 namespace camera {
 
@@ -161,6 +163,22 @@ public:
     _scale(1) = params[1];
     _offset(0) = params[2];
     _offset(1) = params[3];
+
+    return true;
+  }
+
+  bool importFromParams(const std::vector<double>& params, const Vec3 & inputVersion) override
+  {
+    if (!updateFromParams(params))
+    {
+       return false;
+    }
+
+    if (isVersionOlder(inputVersion, {1, 2, 1}))
+    {
+      _offset(0) -= double(_w) / 2.0;
+      _offset(1) -= double(_h) / 2.0;
+    }
 
     return true;
   }

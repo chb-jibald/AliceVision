@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <aliceVision/numeric/numeric.hpp>
+
 #define ALICEVISION_VERSION_MAJOR 2
 #define ALICEVISION_VERSION_MINOR 4
 #define ALICEVISION_VERSION_REVISION 0
@@ -19,3 +21,24 @@
                              ALICEVISION_TO_STRING(ALICEVISION_VERSION_MINOR) "." \
                              ALICEVISION_TO_STRING(ALICEVISION_VERSION_REVISION)
 
+namespace aliceVision {
+
+inline bool isVersionOlder(const Vec3 & version, const Vec3 & base)
+{
+    for (Vec3::Index i = 0; i < 3; i++)
+    {
+        if (version[i] < base[i])
+        {
+            return true;
+        }
+
+        if (version[i] > base[i])
+        {
+            return false;
+        }
+    }    
+
+    return false;
+}
+
+}

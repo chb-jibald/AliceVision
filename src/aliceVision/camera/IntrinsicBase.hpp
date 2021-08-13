@@ -311,6 +311,14 @@ public:
   virtual bool updateFromParams(const std::vector<double>& params) = 0;
 
   /**
+   * @brief import intrinsic parameters from external array
+   * @param[in] intrinsic parameters
+   * @param[in] inputVersion input source version (for optional transformation)
+   * @return true if done
+   */
+  virtual bool importFromParams(const std::vector<double>& params, const Vec3 & inputVersion) = 0;
+
+  /**
    * @brief Transform a point from the camera plane to the image plane
    * @param[in] p A point from the camera plane
    * @return Image plane point
