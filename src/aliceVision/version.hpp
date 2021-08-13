@@ -23,22 +23,38 @@
 
 namespace aliceVision {
 
-inline bool isVersionOlder(const Vec3 & version, const Vec3 & base)
+class Version
 {
-    for (Vec3::Index i = 0; i < 3; i++)
+public:
+    Version(const Vec3 & v) : _v(v)
     {
-        if (version[i] < base[i])
-        {
-            return true;
-        }
+    }
+    
+    Version(int major, int minor, int micro) : _v({major, minor, micro})
+    {
 
-        if (version[i] > base[i])
-        {
-            return false;
-        }
-    }    
+    }
 
-    return false;
-}
+    bool operator<(const Version& other) const
+    {
+        for (Vec3::Index i = 0; i < 3; i++)
+        {
+            if (other._v[i] < _v[i])
+            {
+                return true;
+            }
+
+            if (other._v[i] > _v[i])
+            {
+                return false;
+            }
+        }    
+
+        return false;
+    }
+
+private:
+    Vec3 _v;
+};
 
 }

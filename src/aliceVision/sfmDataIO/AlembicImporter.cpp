@@ -302,7 +302,7 @@ bool readPointCloud(IObject iObj, M44d mat, sfmData::SfMData &sfmdata, ESfMData 
   return true;
 }
 
-bool readCamera(const Vec3 & abcVersion, const ICamera& camera, const M44d& mat, sfmData::SfMData& sfmData,
+bool readCamera(const Version & abcVersion, const ICamera& camera, const M44d& mat, sfmData::SfMData& sfmData,
                 ESfMData flagsPart, const index_t sampleFrame = 0, bool isReconstructed = true)
 {
   using namespace aliceVision::geometry;
@@ -490,7 +490,7 @@ bool readCamera(const Vec3 & abcVersion, const ICamera& camera, const M44d& mat,
         Alembic::Abc::IDoubleArrayProperty::sample_ptr_type sample;
         prop.get(sample, ISampleSelector(sampleFrame));
 
-        if (isVersionOlder(abcVersion, {1,2,0})) // abcVersion < 1.2
+        if (abcVersion < Version(1,2,0)) // abcVersion < 1.2
         {
             std::vector<double> params;
             params.assign(sample->get(), sample->get() + sample->size());
@@ -624,7 +624,7 @@ bool readCamera(const Vec3 & abcVersion, const ICamera& camera, const M44d& mat,
   return true;
 }
 
-bool readXform(const Vec3 & abcVersion, IXform& xform, M44d& mat, sfmData::SfMData& sfmData,
+bool readXform(const Version & abcVersion, IXform& xform, M44d& mat, sfmData::SfMData& sfmData,
                ESfMData flagsPart, bool isReconstructed = true)
 {
   using namespace aliceVision::geometry;
@@ -738,7 +738,7 @@ bool readXform(const Vec3 & abcVersion, IXform& xform, M44d& mat, sfmData::SfMDa
 }
 
 // Top down read of 3d objects
-void visitObject(const Vec3& abcVersion, IObject iObj, M44d mat, sfmData::SfMData& sfmdata,
+void visitObject(const Version& abcVersion, IObject iObj, M44d mat, sfmData::SfMData& sfmdata,
                  ESfMData flagsPart, bool isReconstructed = true)
 {
   // ALICEVISION_LOG_DEBUG("ABC visit: " << iObj.getFullName());
@@ -817,7 +817,7 @@ void AlembicImporter::populateSfM(sfmData::SfMData& sfmdata, ESfMData flagsPart)
     getAbcArrayProp<Alembic::Abc::IUInt32ArrayProperty>(userProps, "mvg_ABC_version", sampleFrame, vecAbcVersion);
   }
 
-  Vec3 abcVersion = {vecAbcVersion[0], vecAbcVersion[1], vecAbcVersion[2]};
+  Version abcVersion(vecAbcVersion[0], vecAbcVersion[1], vecAbcVersion[2]);
 
   if(userProps.getPropertyHeader("mvg_featuresFolders"))
   {

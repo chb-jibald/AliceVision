@@ -12,6 +12,7 @@
 #include <aliceVision/camera/IntrinsicInitMode.hpp>
 #include <aliceVision/geometry/Pose3.hpp>
 #include <aliceVision/stl/hash.hpp>
+#include <aliceVision/version.hpp>
 
 #include <vector>
 
@@ -316,7 +317,7 @@ public:
    * @param[in] inputVersion input source version (for optional transformation)
    * @return true if done
    */
-  virtual bool importFromParams(const std::vector<double>& params, const Vec3 & inputVersion) = 0;
+  virtual bool importFromParams(const std::vector<double>& params, const Version & inputVersion) = 0;
 
   /**
    * @brief Transform a point from the camera plane to the image plane
