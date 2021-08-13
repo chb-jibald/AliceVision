@@ -39,12 +39,12 @@ public:
     {
         for (Vec3::Index i = 0; i < 3; i++)
         {
-            if (other._v[i] < _v[i])
+            if (_v[i] < other._v[i])
             {
                 return true;
             }
 
-            if (other._v[i] > _v[i])
+            if (_v[i] > other._v[i])
             {
                 return false;
             }
