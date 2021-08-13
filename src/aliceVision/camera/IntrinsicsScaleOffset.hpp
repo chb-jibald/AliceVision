@@ -54,6 +54,9 @@ public:
     return _offset; 
   }
 
+  /**
+   * @brief Principal point in image coordinate ((0,0) is image top-left).
+   */
   inline const Vec2 getPrincipalPoint() const 
   {
     Vec2 ret = _offset;
@@ -167,6 +170,9 @@ public:
     return true;
   }
 
+  /**
+   * @brief Import a vector of params loaded from a file. It is similar to updateFromParams but it deals with file compatibility.
+   */
   bool importFromParams(const std::vector<double>& params, const Vec3 & inputVersion) override
   {
     if (!updateFromParams(params))
